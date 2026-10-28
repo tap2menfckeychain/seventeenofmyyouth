@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nhật kí thanh xuân · Seventeen</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Patrick+Hand&family=Be+Vietnam+Pro:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--rose:#f7cac9;--sky:#92a8d1;--night:#161b36;--paper:#fffaf3;--ink:#33395c;--hand:'Patrick Hand','Be Vietnam Pro',cursive;--title:'Dancing Script','Be Vietnam Pro',cursive}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--ink);min-height:100svh;padding:1.2rem .8rem 6.5rem;
+  background:radial-gradient(circle at 20% 10%,#2a3262,var(--night) 60%)}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+#book{max-width:580px;margin:0 auto;perspective:1200px}
+.page{display:none}
+.page.cur{display:block;animation:turn .55s ease-out;transform-origin:left center}
+@keyframes turn{from{opacity:0;transform:rotateY(-18deg) translateX(24px)}to{opacity:1;transform:none}}
+.paper{position:relative;background:var(--paper);border-radius:6px 14px 14px 6px;padding:2rem 1.6rem 2.4rem 3.2rem;min-height:72svh;
+  box-shadow:-6px 0 0 #e9ddd0,0 18px 40px rgba(0,0,0,.45);overflow:hidden}
+.paper::before{content:"";position:absolute;left:2.4rem;top:0;bottom:0;border-left:2px solid var(--rose)}
+.paper::after{content:"";position:absolute;left:.7rem;top:12%;bottom:12%;width:10px;background:radial-gradient(circle,#c9c3b8 4px,transparent 5px) 0 0/10px 46px}
+.no{position:absolute;right:1.2rem;bottom:.8rem;font-family:var(--hand);color:#9aa0c0}
+h1,h2{font-family:var(--title);color:#3d4676;line-height:1.1}
+h2{font-size:2.3rem;margin-bottom:.6rem}
+.lines{font:1.3rem/2rem var(--hand);background:repeating-linear-gradient(transparent 0 calc(2rem - 1px),#cfd8ee calc(2rem - 1px) 2rem)}
+.btn{font:500 1rem 'Be Vietnam Pro',sans-serif;border:0;border-radius:999px;padding:.7rem 1.4rem;cursor:pointer;background:var(--night);color:#fff;margin:.4rem .4rem 0 0}
+.btn.rose{background:var(--rose);color:var(--night)}
+.cover{background:linear-gradient(135deg,var(--rose),#c9b6cf 45%,var(--sky));color:var(--night);display:grid;place-items:center;text-align:center;min-height:78svh;padding:2rem 3rem 2rem 2rem}
+.cover::before{left:auto;right:2.2rem;border-left:0;border-right:14px solid rgba(22,27,54,.35)}
+.cover::after{display:none}
+.cover img{width:90px;border-radius:12px;mix-blend-mode:multiply}
+.cover h1{font-size:clamp(3rem,13vw,4.8rem);color:var(--night);margin:.6rem 0}
+.cover p{font-family:var(--hand);font-size:1.3rem;margin-bottom:1.2rem}
+.shot{position:relative;margin:.4rem auto 1.4rem;max-width:400px;background:#fff;padding:.6rem;box-shadow:0 6px 16px rgba(0,0,0,.25);transform:rotate(-1.8deg)}
+.shot:nth-of-type(even){transform:rotate(1.5deg)}
+.shot img{width:100%;display:block}
+.shot::before{content:"";position:absolute;top:-14px;left:50%;width:110px;height:28px;margin-left:-55px;transform:rotate(-3deg);opacity:.85;
+  background:repeating-linear-gradient(45deg,var(--rose) 0 8px,var(--sky) 8px 16px)}
+.stk{position:absolute;right:-12px;bottom:-16px;font-size:2.4rem;transform:rotate(12deg)}
+.hw .shot{outline:3px solid #ff8a3d}.hw h2{color:#d9601a}
+.said{margin-top:1rem;padding:.7rem 1rem;border-left:4px solid var(--sky);background:#eef2fb;font:italic 1.15rem/1.6 var(--hand)}
+.said cite{display:block;font-style:normal;font-size:.9rem;color:#6b73a0}
+.stats{display:flex;gap:.6rem;flex-wrap:wrap;margin:.6rem 0 1rem;font-size:.9rem}.stats span{background:#eef2fb;border-radius:999px;padding:.25rem .9rem}
+.deck{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:1rem}
+.card{aspect-ratio:1;border:0;padding:0;background:none;perspective:600px;cursor:pointer}
+.in{position:relative;display:block;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.up .in{transform:rotateY(180deg)}
+.f,.b{position:absolute;inset:0;border-radius:8px;backface-visibility:hidden;overflow:hidden}
+.f{display:grid;place-items:center;color:#fff;font-size:1.4rem;background:linear-gradient(135deg,var(--rose),var(--sky))}
+.b{transform:rotateY(180deg);border:3px solid #fff}.b img{width:100%;height:100%;object-fit:cover;display:block}
+.ok .b{border-color:var(--rose)}
+#win,#sec{font:1.3rem/1.6 var(--hand);color:#b5546a;min-height:3.5rem}
+#player{position:fixed;right:.8rem;top:.8rem;z-index:5;display:flex;align-items:center;gap:.5rem;background:var(--paper);color:var(--ink);border:0;border-radius:999px;padding:.4rem .9rem .4rem .45rem;cursor:pointer;font:500 .85rem 'Be Vietnam Pro',sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+#player i{width:28px;height:28px;border-radius:50%;background:conic-gradient(var(--rose),var(--sky),var(--rose));display:grid;place-items:center;font-style:normal}
+#player.on i{animation:spin 4s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;gap:1rem;padding:.8rem;background:rgba(22,27,54,.92);color:#cfd5f0;z-index:4}
+nav button{background:var(--rose);color:var(--night);border:0;border-radius:999px;padding:.55rem 1.3rem;font:500 .95rem 'Be Vietnam Pro',sans-serif;cursor:pointer}
+nav button:disabled{opacity:.35;cursor:default}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main id="book"></main>
+<nav><button id="pv">‹ Trước</button><span id="pg"></span><button id="nx">Sau ›</button></nav>
+<button id="player" aria-pressed="false"><i>♪</i><span>Bật nhạc</span></button>
+<audio id="aud" src="music/nhac.mp3" loop preload="auto" autoplay></audio>
+
+<script>
+/* ===== CHỈNH SỬA TẠI ĐÂY =====
+   msg  : lời nhắn gửi bạn (mình tự viết, không phải lời của thành viên).
+   said : muốn thêm câu thật mà thành viên từng nói? Dán vào "said" và ghi nguồn
+          (chương trình, buổi diễn...) vào "by". Để trống thì sẽ không hiện. */
+const PHOTOS=[
+ {src:"images/05.jpg",title:"Cả nhà trên sân khấu",st:"🎤",said:"",by:"",
+  msg:"Đèn sân khấu sáng lên vì đã có những ngày tập luyện trong im lặng. Hôm nay cậu cũng đang luyện cho điều của riêng mình. Cứ tiếp tục nhé."},
+ {src:"images/04.jpg",title:"Chuyến đi giữa núi rừng",st:"🌿",said:"",by:"",
+  msg:"Đi chậm cũng được, miễn là cậu vẫn đang đi. Cảnh đẹp thường nằm ở đoạn đường mà ta suýt bỏ cuộc."},
+ {src:"images/03.jpg",title:"Bữa tối dưới trời đêm",st:"🍜",said:"",by:"",
+  msg:"Mệt thì ngồi xuống ăn một bữa thật ngon với người mình thương. Ăn đủ, ngủ đủ cũng là một thành tích."},
+ {src:"images/09.jpg",title:"Happy Halloween",st:"🎃",cls:"hw",said:"",by:"",
+  msg:"Cho phép mình làm trẻ con một chút. Hóa trang, cười thật to, quên deadline trong một buổi chiều. Happy Halloween!"},
+ {src:"images/07.jpg",title:"Mười ba nụ cười",st:"😊",said:"",by:"",
+  msg:"Khi không biết cười vì điều gì, hãy nhớ lại nụ cười này. Còn cười được thì hôm nay chưa tệ đâu."},
+ {src:"images/02.jpg",title:"Ôm nhau trên sân khấu",st:"🤍",said:"",by:"",
+  msg:"Không ai đi một mình cả. Nếu hôm nay nặng nề, nhớ rằng luôn có người đang ôm cậu theo cách của họ."},
+ {src:"images/08.jpg",title:"Bên hồ, giữa núi",st:"⛰️",said:"",by:"",
+  msg:"Yên tĩnh cũng là một cách hồi sức. Hít một hơi dài, nhìn ra xa, rồi quay lại với việc đang làm."},
+ {src:"images/01.jpg",title:"Vòng tròn cuối buổi diễn",st:"✨",said:"",by:"",
+  msg:"Đi hết một vòng rồi sẽ lại gặp nhau. Yên tâm đi, những điều tốt đẹp biết đường quay về."}
+];
+const WORDS=["Mệt thì nghỉ một chút, rồi mình đi tiếp.","Hôm nay chưa tốt cũng không sao, mai làm lại.","Cố gắng của cậu cũng đáng được ôm một cái.","Có những người ở xa mà vẫn kéo mình đứng dậy được.","Đừng so với ai cả, hôm qua của cậu mới là đối thủ."];
+/* ============================== */
+
+const $=s=>document.querySelector(s);
+const pages=[];
+pages.push({html:`<div class="paper cover"><div><img src="images/06-logo.jpg" alt="Logo Seventeen"><h1>Nhật kí thanh xuân</h1><p>Của một CARAT, viết để nhớ.</p><p style="font-size:1rem;margin-top:-.8rem">Chạm vào bất kì đâu, nhạc sẽ tự phát.</p><button class="btn" id="open">Mở nhật kí</button></div></div>`,
+ init:e=>e.querySelector('#open').onclick=()=>{startMusic();go(1)}});
+pages.push({html:`<div class="paper"><h2>Gửi chính mình</h2><div class="lines">Cuốn nhật kí nhỏ này mình làm để cất những khoảnh khắc thanh xuân. Mỗi trang là một tấm ảnh và một lời nhắn. Khi nhớ thì mở ra đọc, khi mệt thì lật bừa một trang.<br>Cuối sổ còn có một trò chơi và một trang bí mật nữa đó.</div><br><button class="btn rose" id="rnd">Lật bừa một trang</button><span class="no">1</span></div>`,
+ init:e=>e.querySelector('#rnd').onclick=()=>go(2+Math.floor(Math.random()*PHOTOS.length))});
+PHOTOS.forEach(p=>pages.push({html:`<div class="paper ${p.cls||''}"><h2>${p.title}</h2><div class="shot"><img src="${p.src}" alt="${p.title}"><span class="stk">${p.st}</span></div><div class="lines">${p.msg}</div>${p.said?`<blockquote class="said">“${p.said}”<cite>${p.by}</cite></blockquote>`:''}</div>`}));
+pages.push({html:`<div class="paper"><h2>Trò chơi lật hình</h2><div class="lines">Tìm đủ 8 cặp ảnh với ít lượt nhất.</div><div class="stats"><span>Lượt: <b id="mv">0</b></span><span>Thời gian: <b id="tm">0</b>s</span><span>Kỉ lục: <b id="bs">–</b></span></div><div class="deck" id="deck"></div><p id="win"></p><button class="btn rose" id="again">Chơi lại</button></div>`,init:initGame});
+pages.push({html:`<div class="paper"><h2>Trang bí mật</h2><div class="lines">Bấm nút khi cậu cần một lời động viên.</div><p id="sec"></p><button class="btn rose" id="sb">Mở một lời nhắn</button></div>`,
+ init:e=>{let l=-1;e.querySelector('#sb').onclick=()=>{let n;do{n=Math.floor(Math.random()*WORDS.length)}while(n===l);l=n;e.querySelector('#sec').textContent=WORDS[n]}}});
+pages.push({html:`<div class="paper"><h2>Hết trang rồi</h2><div class="lines">Nhưng thanh xuân thì chưa hết. Mai cậu lại viết tiếp những trang mới nhé.</div><br><button class="btn rose" id="home">Về trang đầu</button></div>`,init:e=>e.querySelector('#home').onclick=()=>go(0)});
+
+const book=$('#book');
+book.innerHTML=pages.map((p,i)=>`<section class="page">${p.html.replace(/<\/div>$/,`<span class="no">${i>1&&i<pages.length-1?i:''}</span></div>`)}</section>`).join('');
+pages.forEach((p,i)=>p.init&&p.init(book.children[i]));
+let cur=0;
+function go(n){cur=Math.max(0,Math.min(pages.length-1,n));[...book.children].forEach((e,i)=>e.classList.toggle('cur',i===cur));
+ $('#pg').textContent=cur+1+' / '+pages.length;$('#pv').disabled=cur===0;$('#nx').disabled=cur===pages.length-1;scrollTo(0,0)}
+$('#pv').onclick=()=>go(cur-1);$('#nx').onclick=()=>go(cur+1);
+addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(cur-1);if(e.key==='ArrowRight')go(cur+1)});
+let sx=0;addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>70)go(cur+(d<0?1:-1))},{passive:true});
+go(0);
+
+/* nhạc: thử tự phát; nếu bị chặn thì phát ở lần chạm đầu tiên */
+const aud=$('#aud'),pl=$('#player');
+function ui(){const on=!aud.paused;pl.classList.toggle('on',on);pl.querySelector('span').textContent=on?'Tắt nhạc':'Bật nhạc';pl.setAttribute('aria-pressed',on)}
+function startMusic(){aud.play().then(ui).catch(()=>{})}
+pl.onclick=e=>{e.stopPropagation();if(aud.paused){userPaused=false;startMusic()}else{userPaused=true;aud.pause();ui()}};
+aud.addEventListener('play',ui);aud.addEventListener('pause',ui);
+let userPaused=false;
+function unlock(){if(userPaused||!aud.paused){off();return}aud.play().then(()=>{ui();off()}).catch(()=>{})}
+const EV=['click','touchend','keydown','wheel'];
+function off(){EV.forEach(t=>removeEventListener(t,unlock))}
+EV.forEach(t=>addEventListener(t,unlock,{passive:true}));
+addEventListener('load',startMusic);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&aud.paused&&!userPaused)startMusic()});
+startMusic();
+
+/* trò chơi lật hình */
+function initGame(root){
+ const deck=root.querySelector('#deck'),mv=root.querySelector('#mv'),tm=root.querySelector('#tm'),bs=root.querySelector('#bs'),win=root.querySelector('#win');
+ let first=null,lock=false,moves=0,pairs=0,t0=0,tick=null,best=null;
+ try{best=+localStorage.getItem('svt-best')||null}catch(e){}
+ bs.textContent=best?best+' lượt':'–';
+ function reset(){clearInterval(tick);tick=null;first=null;lock=false;moves=pairs=0;mv.textContent=0;tm.textContent=0;win.textContent='';deck.innerHTML='';
+  PHOTOS.flatMap((p,i)=>[i,i]).sort(()=>Math.random()-.5).forEach(id=>{
+   const c=document.createElement('button');c.className='card';c.dataset.id=id;c.setAttribute('aria-label','Thẻ bài úp');
+   c.innerHTML=`<span class="in"><span class="f">♪</span><span class="b"><img src="${PHOTOS[id].src}" alt="${PHOTOS[id].title}"></span></span>`;
+   c.onclick=()=>flip(c);deck.appendChild(c)})}
+ function flip(c){
+  if(lock||c.classList.contains('up'))return;
+  if(!tick){t0=Date.now();tick=setInterval(()=>tm.textContent=Math.floor((Date.now()-t0)/1000),500)}
+  c.classList.add('up');if(!first){first=c;return}
+  moves++;mv.textContent=moves;
+  if(first.dataset.id===c.dataset.id){first.classList.add('ok');c.classList.add('ok');first=null;
+   if(++pairs===PHOTOS.length){clearInterval(tick);const rec=!best||moves<best;
+    if(rec){best=moves;try{localStorage.setItem('svt-best',best)}catch(e){}bs.textContent=best+' lượt'}
+    win.textContent=(rec?'Kỉ lục mới! ':'')+'Xong sau '+moves+' lượt. '+WORDS[Math.floor(Math.random()*WORDS.length)]}}
+  else{lock=true;const a=first;first=null;setTimeout(()=>{a.classList.remove('up');c.classList.remove('up');lock=false},800)}}
+ root.querySelector('#again').onclick=reset;reset();
+}
+</script>
+</body>
+</html>
